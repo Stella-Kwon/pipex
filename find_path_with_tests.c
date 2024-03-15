@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: skwon2 <skwon2@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/15 14:20:00 by skwon2            #+#    #+#             */
-/*   Updated: 2024/03/15 14:57:31 by skwon2           ###   ########.fr       */
+/*   Created: 2024/03/08 10:25:23 by skwon2            #+#    #+#             */
+/*   Updated: 2024/03/15 14:18:38 by skwon2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,39 +47,79 @@ char *find_path(char **env)
     return (path);
 }
 
-char *find_right_path(char **env, char **argv)
+char **split_path(char **env)
 {
     char *path;
     char **split_path;
-    char **wholepath;
-    char **split_cmd;
-    char *tmp; 
-    int i;
     
     path = find_path(env);
-    split_path = ft_split_add_slush(path, ':');
+    if (!path)
+    {
+        printf("path is NULL which means env is null : check env and find_path()\n");
+        return (NULL);
+    }
+    split_path= ft_split_add_slush(path, ':');
+    if (!split_path)
+    {
+        printf(" path is NULL : check split_path() -> ft_split(), it has problem \n");
+        return (NULL);
+    }
+    int i;
+    int j = 0;
     i = 0;
-    while (split_path[i])
+    printf("\n\n\npath:\n");
+    while(split_path[i])
+    {
+        j = 0;
+        while(split_path[i][j])
+        {
+            printf("%c", split_path[i][j]);
+            j++;
+        }
+        printf("\n");
+        i++;
+    }
+    printf("\n");
+    return (split_path);
+}
+
+char *find_right_path(char **env, char **argv)
+{
+    int     i;
+    char *tmp;
+    char **path;
+    char **split_cmd;
+    
+    i = 0;
+    path = split_path(env);
+    if (!path)
+        return (NULL);
+    while (path[i])
     {
         split_cmd = ft_split(argv[i], ' ');
         printf("argv[i] :  %s\n", argv[i]);
         printf("cmd  : %s\n", split_cmd[0]);
-        tmp = ft_strjoin(split_path[i], split_cmd[0]);
+        tmp = ft_strjoin(path[i], split_cmd[0]);
+        if (!tmp)
+        {
+            printf("tmp is null in check_wholepath_argv() : check after ft_strjoin()\n");
+            return (NULL);
+        }
         if (access(tmp, X_OK) == 0)
         {
-            
+            all_free(path);
             all_free(split_cmd);
-            split_cmd[i] = tmp;
-            free(tmp);
-            return (split_cmd);
+            return (tmp);
         }
-        split_cmd[i] = NULL;
-        all_free(split_cmd);
-        free(tmp);
+        else
+        {
+            all_free(split_cmd);
+            free(tmp);
+        }
         i++;
     }
     printf("find right path : path %s\n ", tmp);
-    all_free(split_path);
+    all_free(path);
     perror("zsh ");
     return (NULL);
 }

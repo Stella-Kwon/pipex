@@ -6,7 +6,7 @@
 /*   By: skwon2 <skwon2@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:25:22 by skwon2            #+#    #+#             */
-/*   Updated: 2024/03/14 15:27:28 by skwon2           ###   ########.fr       */
+/*   Updated: 2024/03/15 14:26:59 by skwon2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char **ft_split_add_slush(char const *s, char c);
 char **all_free(char **res);
 // void	error(void);
 char *find_path(char **env);
-char **split_path(char **env);
-char **find_right_path(char **env, int i, char **argv, int argc)
+// char **split_path(char **env);
+char *find_right_path(char **env, char **argv);
 #endif
 
