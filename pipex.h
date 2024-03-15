@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suminkwon <suminkwon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: skwon2 <skwon2@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:25:22 by skwon2            #+#    #+#             */
-/*   Updated: 2024/03/12 23:09:41 by suminkwon        ###   ########.fr       */
+/*   Updated: 2024/03/14 15:27:28 by skwon2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,15 @@
 # include "./Libft/libft.h"
 
 # define BUFFER_S 4096
+# define SUCCESS 0
+# define FAILED -1
 
-typedef struct s_path
-{
-    // int fd[2]; // do you need?
-    // int pid; // also this will directly copied while fork()
-    char **env;
-    char **path;
-    // char **each_arg_cmd;
-    char ***argvs_cmd;
-    // char **final_cmd_path;
-    
-
-}              t_path;
+// typedef struct s_path
+// {
+    // char **env;
+    // char **path;
+    // char ***argvs_cmd;
+// }              t_path;
 
 // typedef struct s_read
 // {
@@ -45,18 +41,17 @@ typedef struct s_path
 typedef struct s_main
 {
     int fd[2];
-    int pid;
+    pid_t pid;
     int infile;
     int oufile;
 }               t_main;
-t_path *new_struct(char **env);
+
+// t_path *new_struct(char **env);
 char **ft_split_add_slush(char const *s, char c);
 char **all_free(char **res);
-
+// void	error(void);
 char *find_path(char **env);
-int split_path(t_path **path_data);
-int find_right_cmd_path(t_path **path_data, int i);
-int split_argv(char **argv, t_path **path_data, int argc);
-int check_wholepath_argv(t_path **path_data);
+char **split_path(char **env);
+char **find_right_path(char **env, int i, char **argv, int argc)
 #endif
 

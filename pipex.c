@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suminkwon <suminkwon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: skwon2 <skwon2@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 14:32:52 by suminkwon         #+#    #+#             */
-/*   Updated: 2024/03/13 16:09:25 by suminkwon        ###   ########.fr       */
+/*   Updated: 2024/03/14 14:37:31 by skwon2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,20 @@
 
 // 깔끔하게 정리하기
 
-
-int main(int argc, char **argv, char **env)
+int    execute_exevce(t_path *path_data,int argc, char **argv, char **env)
 {
+    path_data = new_struct(env);
+     if (split_path(&path_data) == -1)
+        return (FAILED);
+    if (split_argv(argv + 1, &path_data, argc) == -1)
+        return (FAILED);
+    if (check_wholepath_argv(&path_data) == -1)
+        return (FAILED);
+    execve()
+    return (SUCCESS);
+}
+int main(int argc, char **argv, char **env)
+{   
     t_path *path_data;
     t_main file;
     int statuscode;
@@ -37,60 +48,47 @@ int main(int argc, char **argv, char **env)
 
     if (argc == 5)
     {
-            path_data = new_struct(env);
-            if (pipe(fd) == -1)
+            
+            if (pipe(file.fd) == -1)
             {
                 perror("Failed to generate pipe");
                 return (1);
             }
-            if (split_path(&path_data) == -1)
-                return (1);
-            if (split_argv(argv + 1, &path_data, argc) == -1)
-                return (1);
-            if (check_wholepath_argv(&path_data) == -1)
-                return (1);
-            t_main.pid = fork();//첫번째 하고나서 하려했는데 그냥 
-            if (t_main.pid == -1)
+           
+            file.pid = fork();//첫번째 하고나서 하려했는데 그냥 
+            if (file.pid == -1)
             {
                 perror("fork ");
                 return (1);
             }
             while (argc-3 > 0)
             {
-                if (t_main.pid == 0)
+                if (file.pid == 0)
                 {
                     // printf("child id : %d\n", getpid());
-                    t_main.infile = open(argv[1], O_RDONLY);
-                    if (dup2(t_main.infile, STDIN_FILENO) == -1)
+                    file.infile = open(argv[1], O_RDONLY);
+                    if (dup2(file.infile, STDIN_FILENO) == -1)
                     {
                         perror("dup2 ");
-                        close(t_main.fd[0]);
+                        close(file.fd[0]);
                         return (1);
                     }
 
 
-                    close(t_main.fd[0]);
+                    close(file.fd[0]);
                     }
-                    else // if (t_main.pid != 0)
+                    else // if (file.pid != 0)
                     {
-                        // t_main.pid = fork();
+                        // file.pid = fork();
                         // printf("parents id : %d\n", getpid());
-                        close(t_main.fd[0]);
-                        if (dup2(t_main.fd[1], STDOUT_FILENO) == -1)
+                        close(file.fd[0]);
+                        if (dup2(file.fd[1], STDOUT_FILENO) == -1)
                         {
                             perror("dup2 ");
-                            close(t_main.fd[1]);
+                            close(file.fd[1]);
                             return (1);
                         }
-                        if (write(t_main.fd[1], passage_read, ft_strlen(passage_read) + 1) == -1)
-                        {
-                            close(fd[1]);
-                            perror("write error ");
-                            return (1);
-                        }
-                        if (argc != 1)
-                            close(fd[1]);
-                        while (waitpid(pid, &statuscode, WNOHANG) == 0)
+                        while (waitpid(file.pid, &statuscode, WNOHANG) == 0)
                         {
                             printf("child is still processing\n");
                             sleep(1);
