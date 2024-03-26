@@ -1,9 +1,9 @@
 NAME = pipex
 
-SRCS = find_path.c\
-		struct_malloc.c\
+SRCS = pipex.c\
 		ft_split_add_slush.c\
-		pipex.c\
+#find_path.c\
+#struct_malloc.c\
 
 INCLUDE = -I./Libft
 

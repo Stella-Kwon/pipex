@@ -1,6 +1,21 @@
-
-
-
-argv:./pipex
-
-there is only the program name
+Libft
+Makefile
+execute.c
+find_path.c
+ft_split_add_slush.c
+ft_split_add_slush.o
+heredoc
+infile
+outfile
+outfile1
+outfile2
+pipex
+pipex.a
+pipex.c
+pipex.h
+pipex.o
+ppx_tmp
+pracitce
+struct_malloc.c
+tester
+tester.sh
