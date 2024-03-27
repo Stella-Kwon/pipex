@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suminkwon <suminkwon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: skwon2 <skwon2@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 14:32:52 by suminkwon         #+#    #+#             */
-/*   Updated: 2024/03/26 23:33:35 by suminkwon        ###   ########.fr       */
+/*   Updated: 2024/03/27 16:21:37 by skwon2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int errors(char *prefix, int n, char *file, char* extra)
     if (n == 0)
     {
         ft_putstr_fd(prefix, 2); // zsh
-        ft_putstr_fd(":", 2);
-        ft_putstr_fd("command not found:", 2);
+        ft_putstr_fd(": ", 2);
+        ft_putstr_fd("command not found: ", 2);
         ft_putstr_fd(file, 2); // cmd
         ft_putstr_fd("\n", 2);
     }
@@ -47,15 +47,15 @@ int errors(char *prefix, int n, char *file, char* extra)
     if (n == 2)
     {
         ft_putstr_fd(prefix, 2); //
-        ft_putstr_fd(":", 2);
-        ft_putstr_fd("permission denied:", 2);
+        ft_putstr_fd(": ", 2);
+        ft_putstr_fd("permission denied: ", 2);
         ft_putstr_fd(file, 2); // filename
         ft_putstr_fd("\n", 2);
     }
     if (n == 3)
     {
         ft_putstr_fd(prefix, 2); //
-        ft_putstr_fd(":", 2);
+        ft_putstr_fd(": ", 2);
         ft_putstr_fd(extra, 2);
         ft_putstr_fd(file, 2); // filename
         ft_putstr_fd("\n", 2);
@@ -401,7 +401,7 @@ void execution(char *argv, char **env)
     split_cmd = ft_split(argv, ' ');
     if (!split_cmd || !split_cmd[0])//안에 \0남아있는거랑 아에 NULL이랑은 달라.
     {
-        errors("zsh", 0, NULL, NULL);
+        errors("zsh", 0, "", NULL);
         if (split_cmd)
             all_free(&split_cmd);
         exit(FAILED);
@@ -411,14 +411,14 @@ void execution(char *argv, char **env)
         if (access(split_cmd[0], X_OK) == -1)
             errors("zsh", 2, split_cmd[0], NULL);
         else
-            errors("zsh", 3, split_cmd[0], "is a directory:");
+            errors("zsh", 3, split_cmd[0], "is a directory: ");
         all_free(&split_cmd);
         exit(FAILED);
     }
 
     if (split_cmd[0][0] == '/' && access(split_cmd[0], X_OK) == -1)
     {
-        errors("zsh", 3, split_cmd[0], "No such file or directory:");
+        errors("zsh", 3, split_cmd[0], "No such file or directory: ");
         all_free(&split_cmd);
         exit(FAILED);
     }
