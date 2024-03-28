@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skwon2 <skwon2@student.42.fr>              +#+  +:+       +#+        */
+/*   By: suminkwon <suminkwon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 16:37:30 by skwon2            #+#    #+#             */
-/*   Updated: 2024/03/27 19:28:55 by skwon2           ###   ########.fr       */
+/*   Updated: 2024/03/28 14:04:13 by suminkwon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,14 @@ int	error_syntax(int heredoc)
 {
 	ft_putstr_fd("\033[31mError: Syntax is wrong\n\e[0m", 2);
 	if (heredoc == 1)
-		ft_putstr_fd("\033[34mEx: ./pipex \"here_doc\" \
+		ft_putstr_fd("\033[36mEx: ./pipex \"here_doc\" \
 		<LIMITER> <cmd> <cmd1> <...> <file>\n\e[0m", 1);
 	else if (heredoc == 0)
-		ft_putstr_fd("\033[32mEx: ./pipex <file1> \
+		ft_putstr_fd("\033[36mEx: ./pipex <file1> \
 		<cmd1> <cmd2> <...> <file2>\n\e[0m", 1);
+	else if (heredoc == 2)
+		ft_putstr_fd("\033[36mEx: ./pipex <file1> \
+		<cmd1> <cmd2> <file2>\n\e[0m", 1);
 	return (FAILED);
 }
 
