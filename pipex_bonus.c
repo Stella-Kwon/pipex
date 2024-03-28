@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suminkwon <suminkwon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: skwon2 <skwon2@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 14:32:52 by suminkwon         #+#    #+#             */
-/*   Updated: 2024/03/28 14:10:30 by suminkwon        ###   ########.fr       */
+/*   Updated: 2024/03/28 14:28:48 by skwon2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,6 @@ int	main(int argc, char **argv, char **env)
 		}
 	}
 	else
-	{
-		system("leaks pipex");
 		return (error_syntax(0));
-	}
-	system("leaks pipex");
 	return (0);
 }

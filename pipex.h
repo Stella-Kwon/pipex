@@ -6,7 +6,7 @@
 /*   By: skwon2 <skwon2@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:25:22 by skwon2            #+#    #+#             */
-/*   Updated: 2024/03/27 19:45:33 by skwon2           ###   ########.fr       */
+/*   Updated: 2024/03/28 14:52:40 by skwon2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,5 @@ int		top_execution(char *argv, char **env, char **path, char	***split_cmd);
 void	execution(char *argv, char **env);
 void	child_childprocess(char *argv, char **env, int *fd, t_data *data);
 void	childprocess(char *argv, char **env, t_data *data);
+size_t	count_words(char *str, char c);
 #endif

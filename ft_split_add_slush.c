@@ -6,13 +6,13 @@
 /*   By: skwon2 <skwon2@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:20:08 by suminkwon         #+#    #+#             */
-/*   Updated: 2024/03/27 17:35:26 by skwon2           ###   ########.fr       */
+/*   Updated: 2024/03/28 14:55:01 by skwon2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static size_t	count_words(char *str, char c)
+size_t	count_words(char *str, char c)
 {
 	size_t	i;
 
