@@ -25,10 +25,10 @@ int split_cmd_error(char ***split_cmd)
         {
             errors("bash: ", 0, NULL, (*split_cmd)[0]);
             all_free(split_cmd);
-            if (access("filename", F_OK) == -1)
-            {
-                // 파일이 존재하지 않음
-                return (126);
+            // if (access("filename", F_OK) == -1)
+            // {
+            //     // 파일이 존재하지 않음
+            //     return (126);
             }
             return (127);
         }
