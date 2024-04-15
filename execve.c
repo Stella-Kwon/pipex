@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sukwon <sukwon@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: skwon2 <skwon2@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:06:18 by suminkwon         #+#    #+#             */
-/*   Updated: 2024/04/15 10:39:18 by sukwon           ###   ########.fr       */
+/*   Updated: 2024/04/15 20:24:29 by skwon2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ int	split_cmd_error(char ***split_cmd)
 		{
 			errors("bash: ", 0, NULL, (*split_cmd)[0]);
 			all_free(split_cmd);
-			if (access("filename", F_OK) == -1)
-				return (126);
 			return (127);
 		}
 		else
@@ -65,7 +63,24 @@ int	top_execution(char *argv, char **env, char **path, char ***split_cmd)
 	*path = find_path(env);
 	if (empty_space_check(argv, path) != SUCCESS)
 		return (127);
+	ft_putstr_fd("argv : ", 2);
+	ft_putstr_fd(argv, 2);
+	ft_putstr_fd("\n", 2);
+	ft_putstr_fd("\n", 2);
+	ft_putstr_fd("\n", 2);
 	*split_cmd = ft_split_several(argv, ' ', '"', '\'');
+
+	int i = 0;
+	while ((*split_cmd)[i] != NULL)
+	{
+		// dprintf(2, "cmds %i : %s\n", i, (*split_cmd[i]));
+		ft_putstr_fd("cmds : ", 2);
+		ft_putstr_fd((*split_cmd)[i], 2);
+		ft_putstr_fd("\n", 2);
+		ft_putstr_fd("\n", 2);
+		i++;
+	}
+
 	exitcode = split_cmd_error(split_cmd);
 	if (exitcode != SUCCESS)
 		return (exitcode);
