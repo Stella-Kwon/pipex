@@ -3,65 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_severals.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sukwon <sukwon@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: suminkwon <suminkwon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 20:04:45 by sukwon            #+#    #+#             */
-/*   Updated: 2024/04/15 10:38:01 by sukwon           ###   ########.fr       */
+/*   Updated: 2024/04/20 17:20:26 by suminkwon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static size_t	get_each_strlen(char **str, char c, char s1, char s2)
+static	char	**get_res(char *str, t_split split)
 {
 	size_t	i;
 
-	i = 0;
-	while (**str && (**str == c || **str == s1 || **str == s2))
-		(*str)++;
-	while ((*str)[i])
-	{
-		if ((*str)[i] == c || (*str)[i] == s1 || (*str)[i] == s2)
-			break ;
-		i++;
-	}
-	return (i);
-}
-
-static char	**get_res(char *str, char c, char s1, char s2)
-{
-	char	**res;
-	size_t	each_strlen;
-	size_t	i;
-	size_t	res_len;
-
-	res_len = count_words(str, c);
-	res = (char **)malloc((res_len + 1) * sizeof(char *));
-	if (!res)
+	split.res_len = cmd_count_words(str, split);
+	split.res = (char **)malloc((split.res_len + 1) * sizeof(char *));
+	if (!split.res)
 		return (NULL);
 	i = 0;
-	while (i < res_len)
+	while (i < split.res_len)
 	{
-		each_strlen = get_each_strlen(&str, c, s1, s2);
-		res[i] = (char *)malloc((each_strlen + 1) * sizeof(char));
-		if (!res[i])
-			return (all_free(&res));
-		ft_strlcpy(res[i], str, each_strlen + 1);
-		str += each_strlen;
+		split.each_strlen = get_each_str_length(&str, &split);
+		split.res[i] = (char *)malloc((split.each_strlen + 1) * sizeof(char));
+		if (!split.res[i])
+			return (all_free(&split.res));
+		ft_strlcpy(split.res[i], str, split.each_strlen + 1);
+		str += split.each_strlen;
+		if (split.check == -10)
+			str ++;
 		i++;
 	}
-	res[i] = NULL;
-	return (res);
+	split.res[i] = NULL;
+	return (split.res);
 }
 
-char	**ft_split_several(char const *s, char c, char s1, char s2)
+char	**ft_split_several(char const *s, const char c, \
+const char s1, const char s2)
 {
-	char	**res;
-	char	*str;
+	char		**res;
+	char		*str;
+	t_split		split;
 
+	split.c = c;
+	split.s1 = s1;
+	split.s2 = s2;
+	split.check = 0;
 	if (!s)
 		return (NULL);
 	str = (char *)s;
-	res = get_res(str, c, s1, s2);
+	res = get_res(str, split);
 	return (res);
 }

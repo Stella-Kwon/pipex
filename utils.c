@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sukwon <sukwon@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: skwon2 <skwon2@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 16:37:30 by skwon2            #+#    #+#             */
-/*   Updated: 2024/04/15 10:38:15 by sukwon           ###   ########.fr       */
+/*   Updated: 2024/04/15 18:41:52 by skwon2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	open_file(char *file, int fileno, int heredoc)
 	open_fd = 0;
 	if (fileno == 0 && heredoc == 0)
 		open_fd = open(file, O_RDONLY);
+	else if (fileno == 1 && heredoc == 1)
+		open_fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else if (fileno == 1 && heredoc == 0)
 		open_fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (open_fd == -1)

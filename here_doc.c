@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sukwon <sukwon@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: suminkwon <suminkwon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 17:37:18 by skwon2            #+#    #+#             */
-/*   Updated: 2024/04/15 10:36:20 by sukwon           ###   ########.fr       */
+/*   Updated: 2024/04/20 09:08:15 by suminkwon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,8 @@ int	heredoc_child(int fd, char *limiter)
 			close(fd);
 			return (SUCCESS);
 		}
-		if (write(fd, line, ft_strlen(line) + 1) == -1)
-			errors("write", 0, NULL, NULL);
-		if (write(fd, "\n", 1) == -1)
+		line = ft_strjoin(line, "\n\0");
+		if (write(fd, line, ft_strlen(line)) == -1)
 			errors("write", 0, NULL, NULL);
 		free(line);
 		line = NULL;
@@ -65,7 +64,7 @@ int	here_doc(char *limiter, t_data *data)
 	heredoc.wstatus = -1;
 	if (data->argc < 6)
 		return (error_syntax(1));
-	data->infile = open_file(".tmp", 1, 0);
+	data->infile = open_file(".tmp", 1, 1);
 	if (data->infile == -1)
 		return (FAILED);
 	ft_putstr_fd("> ", 0);

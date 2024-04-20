@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sukwon <sukwon@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: suminkwon <suminkwon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:06:18 by suminkwon         #+#    #+#             */
-/*   Updated: 2024/04/15 10:39:18 by sukwon           ###   ########.fr       */
+/*   Updated: 2024/04/20 17:17:41 by suminkwon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ int	split_cmd_error(char ***split_cmd)
 		{
 			errors("bash: ", 0, NULL, (*split_cmd)[0]);
 			all_free(split_cmd);
-			if (access("filename", F_OK) == -1)
-				return (126);
 			return (127);
 		}
 		else
