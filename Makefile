@@ -9,13 +9,14 @@ COMMON_SCRS = ft_split_add_slush.c\
 		initializer.c\
 		free.c\
 		ft_split_severals.c\
+		ft_split_severals2.c\
 		
 SRCS = pipex.c\
 
 BONUS_SRCS = pipex_bonus.c\
 		read_line.c\
 		here_doc.c\
-		
+
 INCLUDE = -I./libft
 
 LIBFT_DIR := ./libft

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sukwon <sukwon@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: suminkwon <suminkwon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:25:22 by skwon2            #+#    #+#             */
-/*   Updated: 2024/04/14 20:05:16 by sukwon           ###   ########.fr       */
+/*   Updated: 2024/04/20 09:38:58 by suminkwon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ typedef struct s_path
 	int		i;
 }				t_path;
 
+typedef struct s_num
+{
+	size_t	count;
+	size_t	i;
+}			t_num;
 typedef struct s_data
 {
 	int		i;
@@ -109,4 +114,6 @@ char	**all_free_int(int ***res, int n);
 int		ft_strcmp(const char *line, const char *limiter);
 char	**all_free_int(int ***res, int n);
 char	**ft_split_several(char const *s, char c, char s1, char s2);
+size_t	cmd_count_words(char *str, char c, char s1, char s2);
+size_t	get_each_str_length(char **str, char c, char s1, char s2);
 #endif

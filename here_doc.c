@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skwon2 <skwon2@student.42.fr>              +#+  +:+       +#+        */
+/*   By: suminkwon <suminkwon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 17:37:18 by skwon2            #+#    #+#             */
-/*   Updated: 2024/04/15 18:42:15 by skwon2           ###   ########.fr       */
+/*   Updated: 2024/04/20 09:08:15 by suminkwon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,12 @@ int	here_doc(char *limiter, t_data *data)
 	data->infile = open_file(".tmp", 1, 1);
 	if (data->infile == -1)
 		return (FAILED);
-	getchar();
 	ft_putstr_fd("> ", 0);
 	heredoc.exitcode = heredoc_child(data->infile, limiter);
-	getchar();
 	close(data->infile);
 	data->infile = open_file(".tmp", 0, 0);
 	if (data->infile == -1)
 		return (FAILED);
-	getchar();
 	return (heredoc.exitcode);
 }
 
