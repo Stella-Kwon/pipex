@@ -15,7 +15,7 @@ SRCS = pipex.c\
 BONUS_SRCS = pipex_bonus.c\
 		read_line.c\
 		here_doc.c\
-
+		
 INCLUDE = -I./libft
 
 LIBFT_DIR := ./libft
