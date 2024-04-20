@@ -47,7 +47,7 @@ int	heredoc_child(int fd, char *limiter)
 			close(fd);
 			return (SUCCESS);
 		}
-		line = ft_strjoin(line, "\n\0");
+		line = ft_strjoin(line, "\n");
 		if (write(fd, line, ft_strlen(line)) == -1)
 			errors("write", 0, NULL, NULL);
 		free(line);
