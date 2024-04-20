@@ -6,7 +6,7 @@
 /*   By: suminkwon <suminkwon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:25:22 by skwon2            #+#    #+#             */
-/*   Updated: 2024/04/20 09:38:58 by suminkwon        ###   ########.fr       */
+/*   Updated: 2024/04/20 14:53:23 by suminkwon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,22 @@ typedef struct s_num
 {
 	size_t	count;
 	size_t	i;
+	int		res;
+	int		check;
 }			t_num;
+
+typedef struct s_split
+{
+	char	c;
+	char	s1;
+	char	s2;
+	char		**res;
+	size_t		each_strlen;
+	size_t		res_len;
+	int			check;
+}				t_split;
+
+
 typedef struct s_data
 {
 	int		i;
@@ -113,7 +128,8 @@ void	initialize_data(t_data	*data, int argc, char **argv);
 char	**all_free_int(int ***res, int n);
 int		ft_strcmp(const char *line, const char *limiter);
 char	**all_free_int(int ***res, int n);
-char	**ft_split_several(char const *s, char c, char s1, char s2);
-size_t	cmd_count_words(char *str, char c, char s1, char s2);
-size_t	get_each_str_length(char **str, char c, char s1, char s2);
+char	**ft_split_several(char const *s, const char c, \
+const char s1, const char s2);
+size_t	cmd_count_words(char *str, t_split split);
+size_t	get_each_str_length(char **str, t_split *split);
 #endif

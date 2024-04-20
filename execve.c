@@ -6,7 +6,7 @@
 /*   By: suminkwon <suminkwon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:06:18 by suminkwon         #+#    #+#             */
-/*   Updated: 2024/04/20 09:07:54 by suminkwon        ###   ########.fr       */
+/*   Updated: 2024/04/20 13:12:16 by suminkwon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,24 @@ int	top_execution(char *argv, char **env, char **path, char ***split_cmd)
 	*path = find_path(env);
 	if (empty_space_check(argv, path) != SUCCESS)
 		return (127);
+	ft_putstr_fd("argv : ", 2);
+	ft_putstr_fd(argv, 2);
+	ft_putstr_fd("\n", 2);
+	ft_putstr_fd("\n", 2);
+	ft_putstr_fd("\n", 2);
 	*split_cmd = ft_split_several(argv, ' ', '"', '\'');
+
+	int i = 0;
+	while ((*split_cmd)[i] != NULL)
+	{
+		// dprintf(2, "cmds %i : %s\n", i, (*split_cmd[i]));
+		ft_putstr_fd("cmds : ", 2);
+		ft_putstr_fd((*split_cmd)[i], 2);
+		ft_putstr_fd("\n", 2);
+		ft_putstr_fd("\n", 2);
+		i++;
+	}
+
 	exitcode = split_cmd_error(split_cmd);
 	if (exitcode != SUCCESS)
 		return (exitcode);
