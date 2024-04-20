@@ -56,11 +56,11 @@ int	heredoc_child(int fd, char *limiter)
 			close(fd);
 			return (SUCCESS);
 		}
-		line = ft_strjoin(line, "\n\0");
+		line = ft_strjoin(line, "\n");
 		// dprintf(2, "line:%s\n", line); 
 		if (write(fd, line, ft_strlen(line)) == -1)
 			errors("write", 0, NULL, NULL);
-		// if (write(fd, "\0\n", 2) == -1) // this has a problem to read from grep function 
+		// if (write(fd, "\n\0", 2) == -1) // this has a problem to read from grep function 
 		// 	errors("write", 0, NULL, NULL);
 		free(line);
 		line = NULL; // 이렇게 안하면 쓰레기 갑이 들어감.
@@ -68,28 +68,16 @@ int	heredoc_child(int fd, char *limiter)
 	}
 	return (FAILED);
 }
+
 /*
-Yes, writing directly to a file descriptor using write() with characters like \0 (null character) and \n (newline character) can still result in the file being treated as binary, 
-even though these characters are part of the ASCII table. The key factor here is not the characters themselves but how they are used and interpreted by the tools that read the file.
+즉 /0을 write에다 쓰면 이상한 바이너리가 써진다. cat -e로 보임
+정확히 말씀드리자면, write 함수의 세 번째 매개변수로 전달되는 문자열의 길이를 나타내는 값이 \0을 포함해서는 안 됩니다. 
+write 함수는 문자열의 길이를 정확히 알아야 하기 때문에, 문자열의 끝을 표시하는 널 종료 문자(\0)를 길이에 포함시키면 안 됩니다.
 
-The ASCII table includes both printable characters (like letters, numbers, and punctuation) and control characters (like \0 and \n). 
-While \0 and \n are indeed part of the ASCII table, their presence in a file can lead to the file being interpreted as binary by some tools, such as grep, 
-if those tools use heuristics to determine the file type.
+일반적으로 C 스트링은 널 종료 문자(\0)를 포함하여 문자열의 끝을 나타내지만, write 함수는 명시적으로 문자열의 길이를 지정해주어야 합니다. 
+따라서 write 함수에 전달되는 문자열은 널 종료 문자(\0)를 포함시키지 않고, 단순히 문자열의 길이만큼 전달해야 합니다.
 
-grep, for example, might interpret a file as binary if it contains non-printable ASCII characters or if the file does not conform to the expected text file format. 
-This is because grep and similar tools often check the first few bytes of a file to determine if it contains binary data. If they find any non-text characters, 
-they might assume the file is binary and not process it as text 5.
-
-Even though \0 and \n are part of the ASCII table and are commonly used in text files, 
-their presence in a file does not guarantee that the file will be treated as text by all tools. 
-The interpretation of a file as text or binary is determined by the file's content and how it is processed by the reading tool.
-If a file contains only ASCII characters but is not formatted as a standard text file (e.g., missing a final newline character, 
-using non-standard line endings, or containing binary data), it might still be interpreted as binary by some tools 5.
-
-In summary, while \0 and \n are part of the ASCII table and are used in text files, 
-the presence of these characters in a file does not guarantee that the file will be treated as text by all tools.
-The file's interpretation as text or binary depends on its content and how it is processed by the reading tool.
-
+따라서 write 함수를 사용할 때는 일반적으로 널 종료 문자(\0)를 포함시키지 않는 것이 좋습니다. 만약 \0을 포함시키면, 해당 문자열 이후의 데이터는 무시되거나 잘못된 결과가 발생할 수 있습니다.
 */
 int	here_doc(char *limiter, t_data *data)
 {
