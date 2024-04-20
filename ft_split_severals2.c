@@ -6,7 +6,7 @@
 /*   By: suminkwon <suminkwon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 09:13:01 by suminkwon         #+#    #+#             */
-/*   Updated: 2024/04/20 15:42:39 by suminkwon        ###   ########.fr       */
+/*   Updated: 2024/04/20 17:14:40 by suminkwon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,8 @@ static size_t get_each_str_quote(char **str, t_num *num, char s2, int *check)
 				ft_putstr_fd("check : ", 2);
 				ft_putnbr_fd(*check, 2);
 				ft_putstr_fd("\n", 2);
-				num->i++;
-				return (num->count - 1);
+				// num->i++;
+				return (-2);
 			}
 		}
 	}
@@ -175,6 +175,8 @@ size_t get_each_str_length(char **str, t_split *split)
 		num.res = get_each_str_quote(str, &num, split->s1, &split->check);
 		if (num.res == -1)
 			return (1);
+		if (num.res == -2)
+			return (num.count);
 		ft_putstr_fd("num.res : ", 2);
 		ft_putnbr_fd(num.res, 2);
 		ft_putstr_fd("\n", 2);
@@ -184,11 +186,13 @@ size_t get_each_str_length(char **str, t_split *split)
 		ft_putstr_fd("\n", 2);
 		if (num.res == -1)
 			return (num.res);
+		if (num.res == -2)
+			return (num.count);
 		ft_putstr_fd("char :: ", 2);
 		ft_putchar_fd((*str)[num.i], 2);
 		ft_putstr_fd("\n", 2);
-		ft_putstr_fd("num.res : ", 2);
-		ft_putnbr_fd(num.res, 2);
+		ft_putstr_fd("num.i : ", 2);
+		ft_putnbr_fd(num.i, 2);
 		ft_putstr_fd("\n", 2);
 		if ((*str)[num.i] == split->c)
 		{
