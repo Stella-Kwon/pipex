@@ -88,11 +88,6 @@ int	child_childprocess(char *argv, t_fork **p, t_data *data, char **env)
 
 int	childprocess(char *argv, char **env, t_data *data, t_fork **p)
 {
-	if (data->i < (*p)->cmdscount - 1)
-	{
-		if (pipe((*p)->fd[data->i]) == -1)
-			return (errors("childprocess : pipe failed", 0, NULL, NULL));
-	}
 	(*p)->pid[data->i] = fork();
 	if ((*p)->pid[data->i] == -1)
 		return (errors("childprocess : fork failed", 0, NULL, NULL));
