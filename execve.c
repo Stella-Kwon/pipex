@@ -18,9 +18,11 @@ int	split_cmd_error(char ***split_cmd)
 		return (FAILED);
 	if ((*split_cmd)[0][0] == '.')
 	{
-		if (access((*split_cmd)[0], X_OK) == -1)
+		if (access((*split_cmd)[0], X_OK) == -1) // 파일 존재, 실행가능여부 찾기때문에 둘다 확인해야해서 밑에 따로 체크해야됌
 		{
 			errors("bash: ", 0, NULL, (*split_cmd)[0]);
+			if (access((*split_cmd)[0], F_OK) != -1) // 파일이 있으면 실행이 불가는한것
+				return (126);
 			all_free(split_cmd);
 			return (127);
 		}
