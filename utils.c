@@ -127,14 +127,15 @@ int waitpid_status(int wstatus)
 			return (WEXITSTATUS(wstatus));
 		}
 	}
-	else if (WIFSIGNALED(wstatus))
+	else if (WIFSIGNALED(wstatus)) //신호로 종료된것 체크. 신호로 종료될시 신호로 정지되었다는 표시로 128 + 신호넘버로 exit되어야함
 	{
 		errors("WAIT_STATUS", 1,
 			   "Child process terminated due to signal",
 			   ft_itoa(WTERMSIG(wstatus)));
-		return (WTERMSIG(wstatus));
+		return (WTERMSIG(wstatus) + 128);
 	}
-	else if (WIFSTOPPED(wstatus))
+	else if (WIFSTOPPED(wstatus))//신호로 중지되었을때 확인. 이때는 종료된것이 아니기때문에 128을 더하지 않는다.
+
 	{
 		errors("WAIT_STATUS", 1,
 			   "Child process was stopped by signal", ft_itoa(WSTOPSIG(wstatus)));
@@ -143,3 +144,12 @@ int waitpid_status(int wstatus)
 	ft_putstr_fd("Unexpected termination status\n", 2);
 	return (FAILED);
 }
+
+// 종료된 경우:
+
+// SIGINT (신호 번호 2)로 종료된 경우: 반환 값은 130 (128 + 2).
+// SIGTERM (신호 번호 15)로 종료된 경우: 반환 값은 143 (128 + 15).
+// 정지된 경우:
+
+// SIGTSTP (신호 번호 20)로 정지된 경우: 반환 값은 20.
+// SIGSTOP (신호 번호 17)로 정지된 경우: 반환 값은 17.
